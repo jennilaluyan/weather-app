@@ -1,8 +1,8 @@
 const apiKey = "54894e6eacc642c77191898cce57d0cd"
-const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=manado"
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="
 const searchBox = document.querySelector(".search input")
 const searchButton = document.querySelector(".search button")
-const weatherIcon = document.querySelector(".weather-icon")
+const weatherIcon = document.querySelector(".weather-icon img")
 
 async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`)
@@ -14,7 +14,7 @@ async function checkWeather(city) {
         var data = await response.json()
 
         document.querySelector(".city h2").textContent = data.name
-        document.querySelector(".temperature h1").textContent = Math.round(data.main.temp) + "°c"
+        document.querySelector(".temperature h1").textContent = Math.round(data.main.temp - 273.15) + "°c"
         document.querySelector(".humidity h3").textContent = data.main.humidity + "%"
         document.querySelector(".wind-speed h3").textContent = data.wind.speed + " km/h"
 
@@ -31,7 +31,7 @@ async function checkWeather(city) {
         }
 
         document.querySelector(".weather").style.display = "block"
-        document.querySelector(".error").style.display = "block"
+        document.querySelector(".error").style.display = "none"
     }
 }
 
